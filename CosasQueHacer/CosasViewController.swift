@@ -11,7 +11,7 @@ import UIKit
 class CosasViewController: UITableViewController {
 
   
-  let itemArray = ["Find Mike", "Find Jose", "Find Jack"]
+  var itemArray = ["Find Mike", "Find Jose", "Find Jack"]
   
   
   override func viewDidLoad() {
@@ -50,5 +50,39 @@ class CosasViewController: UITableViewController {
     tableView.deselectRow(at: indexPath, animated: true)
     
   }
-
+  
+  //MARK - Add New Items
+  
+  
+  @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+    
+    var textField = UITextField()
+    
+    let alert = UIAlertController(title: "Añade un Nuevo Asunto", message: "", preferredStyle: .alert)
+    
+    let action = UIAlertAction(title: "Añade Asunto", style: .default) { (action) in
+      
+      if let text = textField.text, text.isEmpty {
+        return
+      } else {
+        self.itemArray.append(textField.text!)
+      }
+      
+      self.tableView.reloadData()
+      
+      
+    }
+    
+    alert.addTextField { (alertTextField) in
+      alertTextField.placeholder = "Entra un nuevo asunto"
+      textField = alertTextField
+    }
+    
+    
+    alert.addAction(action)
+    
+    present(alert, animated: true, completion: nil)
+    
+  }
+  
 }
