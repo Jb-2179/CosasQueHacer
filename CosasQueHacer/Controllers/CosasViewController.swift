@@ -11,12 +11,29 @@ import UIKit
 class CosasViewController: UITableViewController {
 
   
-  var itemArray = ["Find Mike", "Find Jose", "Find Jack"]
+  var asuntoArray = [Asunto]()
   
+  let defaults = UserDefaults.standard
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+    
+    let nuevoAsunto1 = Asunto()
+    nuevoAsunto1.nombre = "Compra Leche"
+    asuntoArray.append(nuevoAsunto1)
+    
+    let nuevoAsunto2 = Asunto()
+    nuevoAsunto2.nombre = "Compra Leche"
+    asuntoArray.append(nuevoAsunto2)
+    
+    let nuevoAsunto3 = Asunto()
+    nuevoAsunto3.nombre = "Compra Leche"
+    asuntoArray.append(nuevoAsunto3)
+    
+      // if let items = defaults.array(forKey: "CosasArray") as? [String] {
+      // itemArray = items
+      // }
+    
   }
 
 
@@ -25,17 +42,20 @@ class CosasViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return itemArray.count
+    return asuntoArray.count
     
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-  let cell = tableView.dequeueReusableCell(withIdentifier: "CosaCell", for: indexPath)
-    
-    cell.textLabel?.text = itemArray[indexPath.row]
+    let cell = tableView.dequeueReusableCell(withIdentifier: "CosaCell", for: indexPath)
   
+    let asunto = asuntoArray[indexPath.row]
+
+    cell.textLabel?.text = asunto.nombre
     
+    cell.accessoryType = asunto.completado == true ? .checkmark : .none
+  
     return cell
     
   }
@@ -45,7 +65,9 @@ class CosasViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+    asuntoArray[indexPath.row].completado = !asuntoArray[indexPath.row].completado
+    
+    tableView.reloadData()
     
     tableView.deselectRow(at: indexPath, animated: true)
     
@@ -62,11 +84,21 @@ class CosasViewController: UITableViewController {
     
     let action = UIAlertAction(title: "Añade Asunto", style: .default) { (action) in
       
-      if let text = textField.text, text.isEmpty {
-        return
-      } else {
-        self.itemArray.append(textField.text!)
+      if let asunto = textField.text {
+        if asunto.isEmpty {
+          return
+        }
+      
+        let nuevoAsunto = Asunto()
+        nuevoAsunto.nombre = asunto
+  
+        self.asuntoArray.append(nuevoAsunto)
+        
+        self.defaults.set(self.asuntoArray, forKey: "AsuntosArray")
       }
+      
+      
+      
       
       self.tableView.reloadData()
       

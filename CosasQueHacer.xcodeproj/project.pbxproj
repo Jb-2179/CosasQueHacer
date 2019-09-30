@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		78171D7723417EB000622391 /* Asunto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78171D7623417EB000622391 /* Asunto.swift */; };
 		78F60B7D233FF7B900BBA666 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F60B7C233FF7B900BBA666 /* AppDelegate.swift */; };
 		78F60B7F233FF7B900BBA666 /* CosasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F60B7E233FF7B900BBA666 /* CosasViewController.swift */; };
 		78F60B82233FF7B900BBA666 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F60B80233FF7B900BBA666 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		78171D7623417EB000622391 /* Asunto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asunto.swift; sourceTree = "<group>"; };
 		78F60B79233FF7B900BBA666 /* CosasQueHacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CosasQueHacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F60B7C233FF7B900BBA666 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F60B7E233FF7B900BBA666 /* CosasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosasViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +37,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		78171D7823417F4A00622391 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				78F60B80233FF7B900BBA666 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		78171D7923417F6700622391 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				78F60B7E233FF7B900BBA666 /* CosasViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		78171D7A23417F7D00622391 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				78171D7623417EB000622391 /* Asunto.swift */,
+			);
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
 		78F60B70233FF7B900BBA666 = {
 			isa = PBXGroup;
 			children = (
@@ -55,11 +81,12 @@
 			isa = PBXGroup;
 			children = (
 				78F60B7C233FF7B900BBA666 /* AppDelegate.swift */,
-				78F60B7E233FF7B900BBA666 /* CosasViewController.swift */,
-				78F60B80233FF7B900BBA666 /* Main.storyboard */,
+				78171D7923417F6700622391 /* Controllers */,
+				78171D7823417F4A00622391 /* Views */,
 				78F60B83233FF7BA00BBA666 /* Assets.xcassets */,
 				78F60B85233FF7BA00BBA666 /* LaunchScreen.storyboard */,
 				78F60B88233FF7BA00BBA666 /* Info.plist */,
+				78171D7A23417F7D00622391 /* Data Model */,
 			);
 			path = CosasQueHacer;
 			sourceTree = "<group>";
@@ -136,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78F60B7F233FF7B900BBA666 /* CosasViewController.swift in Sources */,
+				78171D7723417EB000622391 /* Asunto.swift in Sources */,
 				78F60B7D233FF7B900BBA666 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
