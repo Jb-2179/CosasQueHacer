@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Asunto {
+class Asunto: Codable {
   
   var nombre: String = ""
   var completado: Bool = false

@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  CosasQueHacer
-//
-//  Created by Jesus Betancourt on 9/28/19.
-//  Copyright © 2019 Jesus Betancourt. All rights reserved.
-//
 
 import UIKit
 
@@ -13,30 +6,17 @@ class CosasViewController: UITableViewController {
   
   var asuntoArray = [Asunto]()
   
-  let defaults = UserDefaults.standard
+  let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("misAsuntos.plist")
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let nuevoAsunto1 = Asunto()
-    nuevoAsunto1.nombre = "Compra Leche"
-    asuntoArray.append(nuevoAsunto1)
+    // let myFile = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    // print(myFile)
     
-    let nuevoAsunto2 = Asunto()
-    nuevoAsunto2.nombre = "Compra Leche"
-    asuntoArray.append(nuevoAsunto2)
-    
-    let nuevoAsunto3 = Asunto()
-    nuevoAsunto3.nombre = "Compra Leche"
-    asuntoArray.append(nuevoAsunto3)
-    
-      // if let items = defaults.array(forKey: "CosasArray") as? [String] {
-      // itemArray = items
-      // }
+    loadAsuntos()
     
   }
-
-
   
    //MARK - TableView DataSource Methods
   
@@ -60,60 +40,84 @@ class CosasViewController: UITableViewController {
     
   }
   
-  //MARK - TableView Delegate Methods
+
   
+  
+  
+  //MARK - TableView Delegate Methods
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     asuntoArray[indexPath.row].completado = !asuntoArray[indexPath.row].completado
     
-    tableView.reloadData()
+    saveAsuntos()
     
     tableView.deselectRow(at: indexPath, animated: true)
     
   }
   
-  //MARK - Add New Items
   
+  //MARK - Add New Items
   
   @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
     
     var textField = UITextField()
     
-    let alert = UIAlertController(title: "Añade un Nuevo Asunto", message: "", preferredStyle: .alert)
+      let alert = UIAlertController(title: "Añade un Nuevo Asunto", message: "", preferredStyle: .alert)
     
-    let action = UIAlertAction(title: "Añade Asunto", style: .default) { (action) in
+      let action = UIAlertAction(title: "Añade Asunto", style: .default) { (action) in
       
-      if let asunto = textField.text {
-        if asunto.isEmpty {
-          return
-        }
-      
-        let nuevoAsunto = Asunto()
-        nuevoAsunto.nombre = asunto
+        if let asunto = textField.text {
+          if asunto.isEmpty {
+            return
+          }
+          else {
+            let nuevoAsunto = Asunto()
+            nuevoAsunto.nombre = asunto
   
-        self.asuntoArray.append(nuevoAsunto)
-        
-        self.defaults.set(self.asuntoArray, forKey: "AsuntosArray")
+            self.asuntoArray.append(nuevoAsunto)
+            self.saveAsuntos()
+          }
+        }
+     }
+      
+      alert.addTextField { (alertTextField) in
+        alertTextField.placeholder = "Entra un nuevo asunto"
+        textField = alertTextField
       }
-      
-      
-      
-      
-      self.tableView.reloadData()
-      
-      
+    
+      alert.addAction(action)
+    
+      present(alert, animated: true, completion: nil)
+    
+  }
+  
+  func saveAsuntos() {
+    
+    let encoder = PropertyListEncoder()
+    
+    do {
+      let data = try encoder.encode(asuntoArray)
+      try data.write(to: dataFilePath!)
+    } catch {
+      print("Error encoding asunto array, \(error)")
     }
     
-    alert.addTextField { (alertTextField) in
-      alertTextField.placeholder = "Entra un nuevo asunto"
-      textField = alertTextField
+    
+      tableView.reloadData()
+    
     }
+  
+  func loadAsuntos() {
     
-    
-    alert.addAction(action)
-    
-    present(alert, animated: true, completion: nil)
+    if let data = try? Data(contentsOf: dataFilePath!) {
+      let decoder = PropertyListDecoder()
+      do {
+        asuntoArray = try decoder.decode([Asunto].self, from: data)
+      } catch {
+        print("Error decoding asuntos array, \(error)")
+      }
+    }
     
   }
   
