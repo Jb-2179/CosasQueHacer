@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0933B3DD48BCF5146A72ED49 /* Pods_CosasQueHacer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D4A89791C9DE5FD829D6AAE /* Pods_CosasQueHacer.framework */; };
 		78C333972342425D004D4DE5 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78C333952342425D004D4DE5 /* DataModel.xcdatamodeld */; };
 		78C333992342AAB8004D4DE5 /* CategoriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C333982342AAB8004D4DE5 /* CategoriaViewController.swift */; };
 		78F60B7D233FF7B900BBA666 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F60B7C233FF7B900BBA666 /* AppDelegate.swift */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A1B5B7B673A1DF611426AAC /* Pods-CosasQueHacer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CosasQueHacer.release.xcconfig"; path = "Pods/Target Support Files/Pods-CosasQueHacer/Pods-CosasQueHacer.release.xcconfig"; sourceTree = "<group>"; };
+		1D14612631E18D23FAFD0EF0 /* Pods-CosasQueHacer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CosasQueHacer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CosasQueHacer/Pods-CosasQueHacer.debug.xcconfig"; sourceTree = "<group>"; };
+		6D4A89791C9DE5FD829D6AAE /* Pods_CosasQueHacer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CosasQueHacer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C333962342425D004D4DE5 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		78C333982342AAB8004D4DE5 /* CategoriaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriaViewController.swift; sourceTree = "<group>"; };
 		78F60B79233FF7B900BBA666 /* CosasQueHacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CosasQueHacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,12 +37,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0933B3DD48BCF5146A72ED49 /* Pods_CosasQueHacer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F45BF3F23E8BB35FEE83A39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D4A89791C9DE5FD829D6AAE /* Pods_CosasQueHacer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		78171D7823417F4A00622391 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +82,8 @@
 			children = (
 				78F60B7B233FF7B900BBA666 /* CosasQueHacer */,
 				78F60B7A233FF7B900BBA666 /* Products */,
+				C91FB09CE1985D099EA9B0CE /* Pods */,
+				6F45BF3F23E8BB35FEE83A39 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +109,15 @@
 			path = CosasQueHacer;
 			sourceTree = "<group>";
 		};
+		C91FB09CE1985D099EA9B0CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1D14612631E18D23FAFD0EF0 /* Pods-CosasQueHacer.debug.xcconfig */,
+				1A1B5B7B673A1DF611426AAC /* Pods-CosasQueHacer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -101,9 +125,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 78F60B8B233FF7BA00BBA666 /* Build configuration list for PBXNativeTarget "CosasQueHacer" */;
 			buildPhases = (
+				80BAB26F594767192C4C5443 /* [CP] Check Pods Manifest.lock */,
 				78F60B75233FF7B900BBA666 /* Sources */,
 				78F60B76233FF7B900BBA666 /* Frameworks */,
 				78F60B77233FF7B900BBA666 /* Resources */,
+				3B7E75036E6035E0B5BCA3CB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -159,6 +185,55 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3B7E75036E6035E0B5BCA3CB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CosasQueHacer/Pods-CosasQueHacer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CosasQueHacer/Pods-CosasQueHacer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80BAB26F594767192C4C5443 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CosasQueHacer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		78F60B75233FF7B900BBA666 /* Sources */ = {
@@ -312,6 +387,7 @@
 		};
 		78F60B8C233FF7BA00BBA666 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D14612631E18D23FAFD0EF0 /* Pods-CosasQueHacer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -330,6 +406,7 @@
 		};
 		78F60B8D233FF7BA00BBA666 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A1B5B7B673A1DF611426AAC /* Pods-CosasQueHacer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
