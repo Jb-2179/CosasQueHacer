@@ -1,20 +1,26 @@
 
 import UIKit
+import CoreData
 
 class CosasViewController: UITableViewController {
 
   
   var asuntoArray = [Asunto]()
   
-  let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("misAsuntos.plist")
+  var selectedCategory : Categoria? {
+    didSet{
+      loadAsuntos()
+    }
+  }
+  
+   let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     // let myFile = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-    // print(myFile)
     
-    loadAsuntos()
+    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     
   }
   
@@ -41,12 +47,15 @@ class CosasViewController: UITableViewController {
   }
   
 
-  
-  
-  
   //MARK - TableView Delegate Methods
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    // asuntoArray[indexPath.row].setValue("Ir al Dentista", forKey: "nombre")
+    
+    // context.delete(asuntoArray[indexPath.row]
+    // itemArray.remove(at: indexPath.row]
+    
     
     asuntoArray[indexPath.row].completado = !asuntoArray[indexPath.row].completado
     
@@ -72,8 +81,14 @@ class CosasViewController: UITableViewController {
             return
           }
           else {
-            let nuevoAsunto = Asunto()
+            
+            
+            
+            let nuevoAsunto = Asunto(context: self.context)
             nuevoAsunto.nombre = asunto
+            nuevoAsunto.completado = false
+            nuevoAsunto.parentCategory = self.selectedCategory
+            
   
             self.asuntoArray.append(nuevoAsunto)
             self.saveAsuntos()
@@ -92,33 +107,93 @@ class CosasViewController: UITableViewController {
     
   }
   
+  
+  override func tableView(
+    _ tableView: UITableView,
+    commit editingStyle: UITableViewCell.EditingStyle,
+    forRowAt indexPath: IndexPath) {
+    
+    context.delete(asuntoArray[indexPath.row])
+    asuntoArray.remove(at: indexPath.row)
+    
+    
+    let indexPaths = [indexPath]
+    tableView.deleteRows(at: indexPaths, with: .automatic)
+    
+    saveAsuntos()
+  }
+  
+  
+  
+  
   func saveAsuntos() {
     
-    let encoder = PropertyListEncoder()
-    
     do {
-      let data = try encoder.encode(asuntoArray)
-      try data.write(to: dataFilePath!)
+      try context.save()
     } catch {
-      print("Error encoding asunto array, \(error)")
+      print("Error saving context \(error)")
     }
-    
     
       tableView.reloadData()
     
     }
   
-  func loadAsuntos() {
+  func loadAsuntos(with request: NSFetchRequest<Asunto> = Asunto.fetchRequest(), predicate: NSPredicate? = nil) {
+ 
+    let categoryPredicate = NSPredicate(format: "parentCategory.tipo MATCHES %@", selectedCategory!.tipo!)
     
-    if let data = try? Data(contentsOf: dataFilePath!) {
-      let decoder = PropertyListDecoder()
-      do {
-        asuntoArray = try decoder.decode([Asunto].self, from: data)
-      } catch {
-        print("Error decoding asuntos array, \(error)")
-      }
+    if let additionalPredicate = predicate {
+      request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+    } else {
+      request.predicate = categoryPredicate
     }
     
+    
+    do {
+       asuntoArray = try context.fetch(request)
+    } catch {
+      print("Error saving context \(error)")
+    }
+    
+    
+      tableView.reloadData()
   }
+
+}
+
+//MARK: Search bar methods
+
+extension CosasViewController: UISearchBarDelegate {
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    
+    let request: NSFetchRequest<Asunto> = Asunto.fetchRequest()
+    
+    let predicate = NSPredicate(format: "nombre CONTAINS[cd] %@", searchBar.text!)
+    
+     request.sortDescriptors = [NSSortDescriptor(key: "nombre", ascending: true)]
+    
+    loadAsuntos(with: request, predicate: predicate)
+    
+  }
+  
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    
+    if searchBar.text?.count == 0 {
+      loadAsuntos()
+      
+      
+      DispatchQueue.main.async {
+        
+         searchBar.resignFirstResponder()
+        
+      }
+     
+    
+    
+    
+    }
+  }
+  
   
 }
